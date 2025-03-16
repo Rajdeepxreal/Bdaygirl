@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love!</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            overflow: hidden;
+            position: relative;
+            color: white;
+        }
+        h1 {
+            font-size: 3em;
+            margin-top: 50px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+        p {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+        }
+        .balloons, .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .balloon, .heart {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: pink;
+            border-radius: 50%;
+            animation: float 6s linear infinite;
+        }
+        .heart {
+            background: red;
+            width: 25px;
+            height: 25px;
+            transform: rotate(-45deg);
+        }
+        .heart:before, .heart:after {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: red;
+            border-radius: 50%;
+        }
+        .heart:before {
+            top: -12px;
+            left: 0;
+        }
+        .heart:after {
+            left: 12px;
+            top: 0;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+        .cake {
+            width: 220px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        .cake:hover {
+            transform: scale(1.1);
+        }
+        #message {
+            font-size: 1.8em;
+            display: none;
+            margin-top: 20px;
+        }
+        #candle {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            width: 10px;
+            height: 30px;
+            background: orange;
+            transform: translateX(-50%);
+            display: none;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        .flame {
+            width: 12px;
+            height: 20px;
+            background: yellow;
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: -1px;
+            animation: flicker 0.5s infinite alternate;
+        }
+    </style>
+</head>
+<body>
+    <h1> Happy Birthday My Love! </h1>
+    <p>To the most wonderful person in my life, I hope today brings you as much happiness as you bring me every day. I love you! </p>
+    
+    <div class="hearts"></div>  
+    <div class="balloons"></div>
+
+    <div id="candle">
+        <div class="flame"></div>
+    </div>
+    
+    <img src="https://source.unsplash.com/220x220/?birthday,cake" alt="Birthday Cake" class="cake" onclick="cutCake()">
+    
+    <p id="message"> Happy Birthday, my love! May your day be filled with joy, love, and laughter! </p>
+
+    <audio id="bdayMusic" loop>
+        <source src="https://www.fesliyanstudios.com/play-mp3/387" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("bdayMusic").play();
+        });
+
+        function cutCake() {
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('candle').style.display = 'block';
+            confettiEffect();
+        }
+
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.classList.add('balloon');
+            const colors = ['red', 'blue', 'yellow', 'green', 'pink'];
+            balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.querySelector('.balloons').appendChild(balloon);
+            setTimeout(() => { balloon.remove(); }, 6000);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 4 + 4 + 's';
+            document.querySelector('.hearts').appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+
+        setInterval(createBalloon, 500);
+        setInterval(createHeart, 700);
+
+        function confettiEffect() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createBalloon, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
